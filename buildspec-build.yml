@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  pre-build:
+  pre_build:
     commands:
       - echo "Logging in to ECR..."
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPO_URL
@@ -14,7 +14,7 @@ phases:
       - docker build --platform linux/amd64 -t $ECR_REPO_URL:$IMAGE_TAG .
       - docker tag $ECR_REPO_URL:$IMAGE_TAG $ECR_REPO_URL:latest
 
-  post-build:
+  post_build:
     commands:
       - echo "Pushing image to ECR..."
       - docker push $ECR_REPO_URL:$IMAGE_TAG
@@ -23,9 +23,6 @@ phases:
       - printf '{"ImageURI":"%s"}' $ECR_REPO_URL:$IMAGE_TAG > imageDetail.json
 
 artifacts:
-  files: imageDetail.json
+  files:
     - imageDetail.json
     - k8s/**/*
-
-# **Key:** `--platform linux/amd64` — from your previous project lesson. EKS nodes are x86, never build ARM.
-
