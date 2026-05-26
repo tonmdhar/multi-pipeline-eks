@@ -15,4 +15,10 @@ locals {
   node_desired_size   = 3
   node_min_size       = 3
   node_max_size       = 6
+
+  # Pipeline settings (add to existing locals block)
+  github_owner = "tonmdhar"
+  github_repo = "multi-pipeline-eks"
+  github_branch = "main"
+  codestar_connection_arn = "arn:aws:codeconnections:us-east-1:733508956784:connection/0d9170d0-ca8a-4437-b010-a2c54bd0c04e"
 }
