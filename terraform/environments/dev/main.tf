@@ -34,7 +34,7 @@ module "ecr" {
 }
 
 module "secrets" {
-  source = "../../modules/ecr"
+  source = "../../modules/secrets"
 
   environment = local.environment
   project_name = local.project_name
@@ -48,7 +48,7 @@ module "secrets" {
 }
 
 module "pipeline" {
-  source = "../../modules/ecr"
+  source = "../../modules/pipeline"
 
   environment = local.environment
   project_name = local.project_name
@@ -61,4 +61,24 @@ module "pipeline" {
   vpc_id = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnet_ids
   require_approval = false  # No approval gate for dev
+}
+
+module "sns" {
+  source = "../../modules/sns"
+
+  environment  = local.environment
+  project_name = local.project_name
+  alert_emails = local.alert_emails
+}
+
+module "monitoring" {
+  source = "../../modules/monitoring"
+
+  environment             = local.environment
+  project_name            = local.project_name
+  cluster_name            = local.cluster_name
+  node_group_name         = "${local.cluster_name}-nodes"
+  sns_topic_arn           = module.sns.alerts_topic_arn
+  cpu_alarm_threshold     = local.cpu_alarm_threshold
+  memory_alarm_threshold  = local.memory_alarm_threshold
 }

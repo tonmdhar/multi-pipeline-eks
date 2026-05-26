@@ -11,7 +11,7 @@ terraform {
   # Remote state in S3 — keeps state safe + enables team collaboration
   backend "s3" {
     bucket         = "atlas-platform-terraform-state"
-    key            = "prof/terraform.tfstate"
+    key            = "prod/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "atlas-platform-terraform-locks"
     encrypt        = true
@@ -24,9 +24,8 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "prod"
-      MangedBy    = "terraform"
+      ManagedBy   = "terraform"
       Project     = "atlas-platform"
     }
   }
-}
 }

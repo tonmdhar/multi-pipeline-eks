@@ -24,9 +24,8 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "dev"
-      MangedBy    = "terraform"
+      ManagedBy   = "terraform"
       Project     = "atlas-platform"
     }
-  }
   }
 }

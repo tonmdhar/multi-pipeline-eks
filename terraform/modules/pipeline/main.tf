@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "6.17.0"
-    }
-  }
-}
 ###############################################
 # S3 Bucket — Pipeline Artifacts
 ###############################################
@@ -158,7 +150,7 @@ resource "aws_security_group" "codebuild" {
 ###############################################
 resource "aws_codepipeline" "this" {
   name        = "${var.project_name}-${var.environment}-pipeline"
-  role_arn = aws_iam_role.codebuild.arn
+  role_arn = aws_iam_role.codepipeline.arn
 
   artifact_store {
     location = aws_s3_bucket.artifacts.bucket
