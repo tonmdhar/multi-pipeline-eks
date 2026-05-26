@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: atlas-platform
+  namespace: atlas-platform
+  labels:
+    app: atlas-platform
+spec:
+  selector:
+    matchLabels:
+      app: atlas-platform
+  minAvailable: 1
+
+#  **PDB ensures** at least 1 pod is always running during node upgrades, scaling events, or voluntary disruptions.

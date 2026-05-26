@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: atlas-platform
+  namespace: atlas-platform
+  labels:
+    app: atlas-platform
+spec:
+  selector:
+    app: atlas-platform
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

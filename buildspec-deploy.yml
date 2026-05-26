@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing kubectl..."
+      - curl -LO "https://dl.k8s.io/release/v1.31.0/bin/linux/amd64/kubectl"
+      - chmod +x kubectl
+      - mv kubectl /usr/local/bin/
+
+  pre_build:
+    commands:
+      - echo "Configuring kubectl for EKS..."
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_DEFAULT_REGION
+      - echo "Reading image tag..."
+      - IMAGE_URI=$(cat imageDetail.json | jq -r '.ImageURI')
+
+  build:
+    commands:
+      - echo "Deploying to $ENVIRONMENT..."
+      # Apply manifests using Kustomize overlay for this environment
+      - kubectl apply -k k8s/overlays/$ENVIRONMENT
+      # Update the deployment image
+      - kubectl set image deployment/atlas-platform atlas-platform=$IMAGE_URI -n atlas-platform
+      # Wait for rollout to complete
+      - kubectl rollout status deployment/atlas-platform -n atlas-platform --timeout=300s
+
+  post_build:
+    commands:
+      - echo "Deployment to $ENVIRONMENT complete!"
+      - kubectl get pods -n atlas-platform

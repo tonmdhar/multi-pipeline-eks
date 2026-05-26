@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: atlas-platform
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: atlas-platform
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: "dev"
+        resources:
+          requests:
+            cpu: 256m
+            memory: 512Mi
+          limits:
+            cpu: 512m
+            memory: 1Gi

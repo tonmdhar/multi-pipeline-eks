@@ -1,0 +1,8 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: atlas-platform
+spec:
+  maxReplicas: 3
+  minReplicas: 1

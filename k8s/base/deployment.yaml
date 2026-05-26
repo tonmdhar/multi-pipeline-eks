@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atlas-platform
+  namespace: atlas-platform
+  labels:
+    app: atlas-platform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: atlas-platform
+  template:
+    metadata:
+      labels:
+        app: atlas-platform
+    spec:
+      containers:
+      - name: atlas-platform
+        image: IMAGE_PLACEHOLDER
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: "dev"
+        resources:
+          requests:
+            cpu: 256m
+            memory: 512Mi
+          limits:
+            cpu: 512m
+            memory: 1Gi
+          # Liveness: is the app alive? (restart if not)
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          failureThreshold: 3
+          # Readiness: is the app ready to serve requests?
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 3
+      restartPolicy: Always
+
+#  **Note:** `initialDelaySeconds: 60` for liveness — JVM needs warmup time. From your previous project, too-short probes = restart loop
