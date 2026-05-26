@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+app:
+  environment: prod
+  secrets-name: atlas-platform/prod/app-secrets
+  feature-flags:
+    debug-mode: false
+    rate-limit: 2000
+
+logging:
+  level:
+    com.atlas.platform: WARN
+    root: WARN

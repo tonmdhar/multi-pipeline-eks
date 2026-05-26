@@ -1,0 +1,8 @@
+.git
+.idea
+.gitignore
+terraform/
+k8s/
+wasabi-toolbag/
+*.md
+target/

@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: staging
+
+app:
+  environment: staging
+  secrets-name: atlas-platform/staging/app-secrets
+  feature-flags:
+    debug-mode: false
+    rate-limit: 500
+
+logging:
+  level:
+    com.atlas.platform: INFO
+    root: INFO

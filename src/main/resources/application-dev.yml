@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+app:
+  environment: dev
+  secrets-name: atlas-platform/dev/app-secrets
+  feature-flags:
+    debug-mode: true
+    rate-limit: 100
+
+logging:
+  level:
+    com.atlas.platform: DEBUG
+    root: INFO

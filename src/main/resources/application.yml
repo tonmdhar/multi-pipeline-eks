@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: atlas-platform
+
+server:
+  port: 8080
+
+# Actuator — exposes health probes for Kubernetes
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
