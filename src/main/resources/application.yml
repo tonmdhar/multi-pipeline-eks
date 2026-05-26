@@ -21,3 +21,10 @@ management:
       enabled: true
     readinessState:
       enabled: true
+
+app:
+  environment: unknown
+  secrets-name: ""
+  feature-flags:
+    debug-mode: false
+    rate-limit: 0

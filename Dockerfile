@@ -16,7 +16,7 @@ RUN mvn package -DskipTests -B
 # ============================================
 # Stage 2: Runtime (JRE only — smaller image)
 # ============================================
-FROM amazoncorretto-21-alpine
+FROM amazoncorretto:21-alpine3.21
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Non-root user for security
-RUN addgroup -S addgroup && adduser -S appuser -G addgroup
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
 # JVM settings for containers

@@ -7,6 +7,8 @@ phases:
       - curl -LO "https://dl.k8s.io/release/v1.31.0/bin/linux/amd64/kubectl"
       - chmod +x kubectl
       - mv kubectl /usr/local/bin/
+      - echo "Installing jq..."
+      - yum install -y jq || true
 
   pre_build:
     commands:
@@ -18,11 +20,8 @@ phases:
   build:
     commands:
       - echo "Deploying to $ENVIRONMENT..."
-      # Apply manifests using Kustomize overlay for this environment
       - kubectl apply -k k8s/overlays/$ENVIRONMENT
-      # Update the deployment image
       - kubectl set image deployment/atlas-platform atlas-platform=$IMAGE_URI -n atlas-platform
-      # Wait for rollout to complete
       - kubectl rollout status deployment/atlas-platform -n atlas-platform --timeout=300s
 
   post_build:
