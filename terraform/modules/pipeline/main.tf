@@ -145,6 +145,17 @@ resource "aws_security_group" "codebuild" {
   })
 }
 
+# Allow CodeBuild to reach EKS API (port 443)
+resource "aws_security_group_rule" "codebuild_to_eks" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.codebuild.id
+  security_group_id        = var.cluster_security_group_id
+  description              = "Allow CodeBuild to reach EKS API"
+}
+
 ###############################################
 # CodePipeline
 ###############################################

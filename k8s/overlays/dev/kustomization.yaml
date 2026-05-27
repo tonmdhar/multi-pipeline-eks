@@ -4,11 +4,10 @@ kind: Kustomization
 resources:
   - ../../base
 
-namespace: atlas-platform
-
 patches:
   - path: deployment-patch.yaml
   - path: hpa-patch.yaml
 
-commonLabels:
-  environment: dev
+labels:
+  - pairs:
+      environment: dev

@@ -61,6 +61,7 @@ module "pipeline" {
   vpc_id = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnet_ids
   require_approval = false  # No approval gate for staging
+  cluster_security_group_id = module.eks.cluster_security_group_id
 }
 
 module "sns" {

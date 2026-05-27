@@ -61,3 +61,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "cluster_security_group_id" {
+  description = "EKS cluster security group ID (for CodeBuild access)"
+  type        = string
+}

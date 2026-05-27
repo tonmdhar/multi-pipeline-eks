@@ -3,11 +3,12 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - pdb.yaml
   - deployment.yaml
   - service.yaml
   - hpa.yaml
+  - pdb.yaml
 
-commonLabels:
-  managed-by: kustomize
-  project: atlas-platform
+labels:
+  - pairs:
+      managed-by: kustomize
+      project: atlas-platform
