@@ -3,6 +3,7 @@ kind: Deployment
 
 metadata:
   name: atlas-platform
+  namespace: atlas-platform
 spec:
   replicas: 3
   template:

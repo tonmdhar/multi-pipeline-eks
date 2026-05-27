@@ -3,6 +3,7 @@ kind: HorizontalPodAutoscaler
 
 metadata:
   name: atlas-platform
+  namespace: atlas-platform
 spec:
   maxReplicas: 3
   minReplicas: 1

@@ -3,5 +3,6 @@ kind: PodDisruptionBudget
 
 metadata:
   name: atlas-platform
+  namespace: atlas-platform
 spec:
   minAvailable: 2
